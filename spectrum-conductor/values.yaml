@@ -1,0 +1,28 @@
+# Default values for lsf master.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+cluster:
+  master: icp-worker1
+  pvc: symphony
+  image:
+    repository: master.cfc:8500/default/spectrum-symphony
+    tag: 7.2
+
+master:
+  cpu: 1000m
+  memory: 2048Mi
+
+slave:
+  cpu: 1000m
+  memory: 2048Mi
+  minReplicas: 1
+  maxReplicas: 1
+  maxReplicasForAs: 3 
+  targetCPUUtilizationPercentage: 50
+
+license:
+  key1: "\"enter license key\""
+  key2: "\"enter license key\""
+

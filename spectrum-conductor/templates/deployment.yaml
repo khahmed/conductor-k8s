@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name}}-license"
+data:
+  key1.dat:  {{ .Values.license.key1 }}
+  key2.dat:  {{ .Values.license.key2 }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.cluster.pvc }} 
+  labels:
+    app: conductor-spark
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}"
+  labels:
+    # This makes it easy to search for all components of a release using kubectl
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+    # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: "{{ .Release.Name }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: "{{ .Release.Name }}"
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        app: "{{ .Release.Name }}"
+        release: {{.Release.Name | quote }}
+    spec:
+      hostNetwork: false
+      containers:
+      - name: "{{ .Release.Name }}"
+        image: "{{.Values.cluster.image.repository}}:{{.Values.cluster.image.tag}}"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MASTERNAME
+          value: "{{ .Values.master.master }}"
+        resources:
+          limits:
+            cpu: {{ .Values.master.cpu }}
+            memory: {{ .Values.master.memory }}
+        securityContext:
+          capabilities:
+             add: 
+               - SYS_NICE
+               - NET_BIND_SERVICE
+        volumeMounts:
+        - mountPath: /opt/ibm/spectrumcomputing/kernel/work
+          name: persistdir
+        - mountPath: /var/tmp/cfc
+          name: license
+        - mountPath: /spark
+          name: spark
+      volumes:
+        - name: persistdir
+          persistentVolumeClaim:
+            claimName: "{{ .Values.cluster.pvc }}"
+        - name: license
+          configMap:
+            name: "{{ .Release.Name}}-license" 
+        - name: spark
+          emptyDir: {}
+      restartPolicy: Always
+      hostname: "{{ .Release.Name }}"
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        deploy_cws_master: "true"
+      imagePullSecrets:
+        - name: admin.registrykey
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name:  "{{ .Release.Name}}-slave"
+  labels:
+    # This makes it easy to search for all components of a release using kubectl
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+    # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: "{{ .Release.Name }}-slave"
+spec:
+  replicas: {{ .Values.slave.minReplicas }}
+  selector:
+    matchLabels:
+      app: "{{ .Release.Name }}-slave"
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-slave"
+      labels:
+        app: "{{ .Release.Name }}-slave"
+        release: {{.Release.Name | quote }}
+    spec:
+      hostNetwork: false
+      containers:
+      - name: "{{ .Release.Name }}"
+        image: "{{.Values.cluster.image.repository}}:{{.Values.cluster.image.tag}}"
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MASTERNAME
+          value: {{ .Values.master.master }}
+        resources:
+          limits:
+            cpu: {{ .Values.slave.cpu }}
+            memory: {{ .Values.slave.memory }}
+        securityContext:
+          capabilities:
+             add: 
+               - SYS_NICE
+               - NET_BIND_SERVICE
+        volumeMounts:
+        - mountPath: /spark
+          name: spark
+      volumes:
+        - name: spark
+          emptyDir: {}
+      restartPolicy: Always
+      hostname: "{{ .Release.Name }}"
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        deploy_cws_master: "false"
+      imagePullSecrets:
+        - name: admin.registrykey
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: "{{ .Release.Name }}" 
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: "{{ .Release.Name }}-slave"
+  minReplicas: {{ .Values.slave.minReplicas }} 
+  maxReplicas: {{ .Values.slave.maxReplicasForAs}}
+  targetCPUUtilizationPercentage: {{ .Values.slave.targetCPUUtilizationPercentage }} 
