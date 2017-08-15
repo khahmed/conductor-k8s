@@ -10,8 +10,8 @@ ENV LANG en_CA.UTF-8
 ENV CWS_INSTALL_PKG cwseval-2.2.0.0_ppc64le.bin
 ENV CWS_CLUSTER_TOP  /opt/ibm/spectrumcomputing
 
+RUN yum install -y gettext net-tools gawk which sudo tar wget hostname
 RUN useradd egoadmin
-RUN yum install -y gettext net-tools gawk which sudo tar wget
 
 RUN cd /;wget --quiet --no-proxy http://169.45.172.107:9191/${CWS_INSTALL_PKG};chmod 755 /${CWS_INSTALL_PKG};/${CWS_INSTALL_PKG} --quiet; rm -f /${CWS_INSTALL_PKG}
 
