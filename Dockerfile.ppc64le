@@ -1,5 +1,5 @@
 # Build: docker build -t conductor-spark:2.2 .
-FROM centos:7
+FROM jjacobso/centos-ppc64le:7.2
 MAINTAINER Khalid Ahmed <khalida@ca.ibm.com>
 
 ENV CLUSTERADMIN egoadmin
