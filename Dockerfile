@@ -11,11 +11,12 @@ ENV DISABLESSL Y
 ENV LANG en_CA.UTF-8
 ENV CWS_INSTALL_PKG cwseval-2.2.0.0_x86_64.bin
 ENV CWS_CLUSTER_TOP  /opt/ibm/spectrumcomputing
+ENV REPO_URL=$repo_url
 
 RUN useradd egoadmin
 RUN yum install -y gettext net-tools gawk which sudo tar wget
 
-RUN cd /;wget --quiet --no-proxy http://cfc-master:9191/${CWS_INSTALL_PKG};chmod 755 /${CWS_INSTALL_PKG};/${CWS_INSTALL_PKG} --quiet; rm -f /${CWS_INSTALL_PKG}
+RUN cd /;wget --quiet --no-proxy http://${REPO_URL}/${CWS_INSTALL_PKG};chmod 755 /${CWS_INSTALL_PKG};/${CWS_INSTALL_PKG} --quiet; rm -f /${CWS_INSTALL_PKG}
 
 COPY bootstrap.sh /bootstrap.sh
 RUN chmod 755 /bootstrap.sh

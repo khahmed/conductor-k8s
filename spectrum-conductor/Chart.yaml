@@ -1,4 +1,4 @@
-description: Conductor Spark master
+description: Spectrum Conductor with Spark
 home: https://www.ibm.com/support/knowledgecenter/SSZU2E/product_welcome_conductorspark.html
 icon: http://platform.csdn.net/images/pro_02.gif
 keywords:
@@ -7,9 +7,9 @@ keywords:
 - job
 - distributed
 maintainers:
-- email: xlhuxa@cn.ibm.com
-  name: XiaoLiang Hu
-name: conductor-spark
+- email: khalida@ca.ibm.com
+  name: Khalid Ahmed
+name: spectrum-conductor
 sources:
 - https://hub.docker.com/r/huxl/condutor-spark/
 version: "2.2"

@@ -5,9 +5,9 @@
 
 cluster:
   master: icp-worker1
-  pvc: symphony
+  pvc: conductor
   image:
-    repository: master.cfc:8500/default/spectrum-symphony
+    repository: master.cfc:8500/default/spectrum-conductor
     tag: 7.2
 
 master:
@@ -23,6 +23,6 @@ slave:
   targetCPUUtilizationPercentage: 50
 
 license:
-  key1: "\"enter license key\""
-  key2: "\"enter license key\""
+  key1: "enter license key"
+  key2: "enter license key"
 
