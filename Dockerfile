@@ -11,6 +11,7 @@ ENV DISABLESSL Y
 ENV LANG en_CA.UTF-8
 ENV CWS_INSTALL_PKG cwseval-2.2.0.0_x86_64.bin
 ENV CWS_CLUSTER_TOP  /opt/ibm/spectrumcomputing
+ENV REPO_URL http://192.168.27.100:9191
 
 RUN useradd egoadmin
 RUN yum install -y gettext net-tools gawk which sudo tar wget
