@@ -15,7 +15,7 @@ ENV CWS_CLUSTER_TOP  /opt/ibm/spectrumcomputing
 RUN useradd egoadmin
 RUN yum install -y gettext net-tools gawk which sudo tar wget
 
-RUN cd /;wget --quiet --no-proxy ${REPO_URL}/${CWS_INSTALL_PKG};chmod 755 /${CWS_INSTALL_PKG};/${CWS_INSTALL_PKG} --quiet; rm -f /${CWS_INSTALL_PKG}
+RUN cd /;wget --quiet --no-proxy http://192.168.27.100:9191/${CWS_INSTALL_PKG};chmod 755 /${CWS_INSTALL_PKG};/${CWS_INSTALL_PKG} --quiet; rm -f /${CWS_INSTALL_PKG}
 
 COPY bootstrap.sh /bootstrap.sh
 RUN chmod 755 /bootstrap.sh
