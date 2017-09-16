@@ -1,0 +1,23 @@
+apiVersion: v1
+entries:
+  spectrum-conductor:
+  - created: 2017-09-16T12:20:38.930898371-04:00
+    description: Spectrum Conductor with Spark
+    digest: 7000757dc11ffdab545831837f38607660604d3992c061585d3e24db0a076630
+    home: https://www.ibm.com/support/knowledgecenter/SSZU2E/product_welcome_conductorspark.html
+    icon: http://platform.csdn.net/images/pro_02.gif
+    keywords:
+    - spark
+    - cluster
+    - job
+    - distributed
+    maintainers:
+    - email: khalida@ca.ibm.com
+      name: Khalid Ahmed
+    name: spectrum-conductor
+    sources:
+    - https://hub.docker.com/r/huxl/condutor-spark/
+    urls:
+    - spectrum-conductor-2.2.tgz
+    version: "2.2"
+generated: 2017-09-16T12:20:38.929999217-04:00
