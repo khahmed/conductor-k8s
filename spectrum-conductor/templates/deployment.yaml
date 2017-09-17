@@ -130,7 +130,6 @@ spec:
         - name: spark
           emptyDir: {}
       restartPolicy: Always
-      hostname: "{{ .Release.Name }}"  
       terminationGracePeriodSeconds: 30
       nodeSelector:
         deploy_cws_master: "false"
