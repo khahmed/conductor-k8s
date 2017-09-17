@@ -4,7 +4,7 @@ export CLUSTERADMIN=egoadmin
 export HOSTNAME=`hostname`
 
 # patch to support kernel 4
-sed -i 's|$version = "3"|$version = "3" -o $version = "4"|g' ${SYM_TOP}/kernel/conf/profile.ego
+sed -i 's|$version = "3"|$version = "3" -o $version = "4"|g' ${CWS_TOP}/kernel/conf/profile.ego
 
 /bin/su -c "source $CWS_TOP/kernel/conf/profile.ego; egoconfig join $MASTERNAME -f" egoadmin
 if [ "$MASTERNAME" == `hostname` ]; then

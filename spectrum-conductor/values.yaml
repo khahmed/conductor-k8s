@@ -4,11 +4,11 @@
 # name: value
 
 cluster:
-  master: icp-worker1
+  master: default-spectrum-conductor
   pvc: conductor
   image:
     repository: master.cfc:8500/default/spectrum-conductor
-    tag: 7.2
+    tag: 2.2
 
 master:
   cpu: 1000m
