@@ -60,7 +60,7 @@ spec:
                - SYS_NICE
                - NET_BIND_SERVICE
         volumeMounts:
-        - mountPath: /opt/ibm/spectrumcomputing/kernel/work
+        - mountPath: /shared
           name: persistdir
         - mountPath: /var/tmp/cfc
           name: license
