@@ -76,7 +76,7 @@ spec:
         - name: spark
           emptyDir: {}
       restartPolicy: Always
-      hostname: "{{ .Release.Name }}"
+      hostname: "{{ .Values.master.master }}" 
       terminationGracePeriodSeconds: 30
       nodeSelector:
         deploy_cws_master: "true"
@@ -130,7 +130,7 @@ spec:
         - name: spark
           emptyDir: {}
       restartPolicy: Always
-      hostname: "{{ .Release.Name }}"
+      hostname: "{{ .Release.Name }}"  
       terminationGracePeriodSeconds: 30
       nodeSelector:
         deploy_cws_master: "false"
