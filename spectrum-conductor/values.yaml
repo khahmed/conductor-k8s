@@ -7,7 +7,7 @@ cluster:
   master: default-spectrum-conductor
   pvc: conductor
   image:
-    repository: master.cfc:8500/default/spectrum-conductor
+    repository: mycluster:8500/default/spectrum-conductor
     tag: 2.2
 
 master:
