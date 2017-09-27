@@ -10,6 +10,7 @@ metadata:
     # This makes it easy to audit chart usage.
     chart: "{{.Chart.Name}}-{{.Chart.Version}}"
     release: {{.Release.Name | quote }}
+    app: "{{ .Release.Name }}"
 spec:
   type: NodePort
   ports:

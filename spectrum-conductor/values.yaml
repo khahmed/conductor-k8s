@@ -18,7 +18,6 @@ slave:
   cpu: 1000m
   memory: 2048Mi
   minReplicas: 1
-  maxReplicas: 1
   maxReplicasForAs: 3 
   targetCPUUtilizationPercentage: 50
 

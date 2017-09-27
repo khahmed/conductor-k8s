@@ -11,7 +11,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.cluster.pvc }} 
   labels:
-    app: conductor-spark
+    # This makes it easy to search for all components of a release using kubectl
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+    # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: "{{ .Release.Name }}"
 spec:
   accessModes:
     - ReadWriteMany
@@ -140,6 +145,13 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: "{{ .Release.Name }}" 
+  labels:
+    # This makes it easy to search for all components of a release using kubectl
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+    # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: "{{ .Release.Name }}"
 spec:
   scaleTargetRef:
     apiVersion: extensions/v1beta1
