@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: "{{ .Release.Name}}-license"
 data:
-  key1.dat:  {{ .Values.license.key1 }}
-  key2.dat:  {{ .Values.license.key2 }}
+  key1.dat:  {{ .Values.conductorlicense.key1 }}
+  key2.dat:  {{ .Values.conductorlicense.key2 }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -21,7 +21,7 @@ slave:
   maxReplicasForAs: 3 
   targetCPUUtilizationPercentage: 50
 
-license:
+conductorlicense:
   key1: "enter license key"
   key2: "enter license key"
 
