@@ -19,5 +19,5 @@ entries:
     - https://hub.docker.com/r/huxl/condutor-spark/
     urls:
     - https://raw.githubusercontent.com/khahmed/conductor-k8s/master/spectrum-conductor-2.2.0.tgz
-    version: "2.2"
+    version: "2.2.0"
 generated: 2017-09-16T12:20:38.929999217-04:00
