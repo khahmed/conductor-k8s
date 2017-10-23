@@ -7,7 +7,7 @@ cluster:
   master: default-spectrum-conductor
   pvc: conductor
   image:
-    repository: mycluster:8500/default/conductor-spark
+    repository: mycluster.icp:8500/default/conductor-spark
     tag: 2.2
 
 master:
